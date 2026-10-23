@@ -19,7 +19,196 @@
     margin-bottom: 8px;
 }
 
-/* Modal Gestor Rápido de Todas las Escenas */
+/* ==========================================================================
+   Buscador / Autocompletar de Pistas (Custom Searchable Picker)
+   ========================================================================== */
+
+.sae-picker {
+    position: relative;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.sae-picker-trigger {
+    width: 100%;
+    min-height: 32px;
+    background: #060913;
+    border: 1px solid #334155;
+    color: #f8fafc;
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sae-picker-trigger:hover,
+.sae-picker.is-open .sae-picker-trigger {
+    border-color: #38bdf8;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
+}
+
+.sae-picker-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.sae-picker-label.is-empty {
+    color: #64748b;
+    font-style: italic;
+}
+
+.sae-picker-playlist-tag {
+    color: #38bdf8;
+    font-size: 11px;
+    font-family: monospace;
+    margin-right: 5px;
+}
+
+.sae-picker-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sae-picker-clear {
+    color: #94a3b8;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.sae-picker-clear:hover {
+    background: rgba(239, 68, 68, 0.25);
+    color: #f87171;
+}
+
+.sae-picker-chevron {
+    color: #64748b;
+    font-size: 10px;
+    transition: transform 0.15s ease;
+}
+
+.sae-picker.is-open .sae-picker-chevron {
+    transform: rotate(180deg);
+    color: #38bdf8;
+}
+
+/* Menú desplegable flotante con buscador */
+.sae-picker-dropdown {
+    position: fixed;
+    z-index: 9999;
+    background: #0b1120;
+    border: 1px solid #38bdf8;
+    border-radius: 7px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.92), 0 0 20px rgba(56, 189, 248, 0.25);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 260px;
+    max-height: 310px;
+}
+
+.sae-picker-dropdown.is-open {
+    display: flex;
+}
+
+.sae-picker-search-wrap {
+    padding: 7px 8px;
+    background: #0f172a;
+    border-bottom: 1px solid #1e293b;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.sae-picker-search-wrap i {
+    color: #38bdf8;
+    font-size: 12px;
+}
+
+.sae-picker-search-input {
+    width: 100% !important;
+    background: #060913 !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+    border-radius: 4px !important;
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+    height: 26px !important;
+    outline: none !important;
+}
+
+.sae-picker-search-input:focus {
+    border-color: #38bdf8 !important;
+}
+
+.sae-picker-list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 4px 0;
+}
+
+.sae-picker-group-title {
+    padding: 6px 10px 3px;
+    font-family: monospace;
+    font-size: 11px;
+    font-weight: bold;
+    color: #38bdf8;
+    background: rgba(15, 23, 42, 0.6);
+    border-top: 1px solid #1e293b;
+    user-select: none;
+}
+
+.sae-picker-group-title:first-child {
+    border-top: none;
+}
+
+.sae-picker-option {
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #e2e8f0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    transition: background 0.1s ease;
+}
+
+.sae-picker-option:hover,
+.sae-picker-option.is-highlighted {
+    background: rgba(2, 132, 199, 0.28);
+    color: #fff;
+}
+
+.sae-picker-option.is-selected {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    font-weight: 600;
+}
+
+.sae-picker-empty-msg {
+    padding: 12px;
+    text-align: center;
+    color: #64748b;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   Modal Gestor Rápido de Todas las Escenas
+   ========================================================================== */
+
 .sae-modal-backdrop {
     position: fixed;
     inset: 0;
@@ -35,7 +224,7 @@
     background: #0b1120;
     border: 1px solid #38bdf8;
     border-radius: 10px;
-    width: 860px;
+    width: 880px;
     max-width: 95vw;
     max-height: 85vh;
     display: flex;
@@ -113,22 +302,6 @@
     font-size: 10px;
     padding: 1px 6px;
     border-radius: 10px;
-}
-
-.sae-select {
-    width: 100%;
-    background: #060913 !important;
-    border: 1px solid #334155 !important;
-    color: #f8fafc !important;
-    border-radius: 5px !important;
-    padding: 5px 8px !important;
-    font-size: 12px !important;
-    height: 32px !important;
-}
-
-.sae-select:focus {
-    border-color: #38bdf8 !important;
-    outline: none !important;
 }
 
 .sae-btn {
