@@ -1,0 +1,24 @@
+{
+  "id": "sonidos-ambiente-escena",
+  "title": "Sonidos Ambiente por Escena (Capas en Bucle)",
+  "description": "Permite asignar 1 o 2 pistas de sonido ambiente adicionales a cada escena desde tus listas de audio. Se reproducen automáticamente en bucle al activar la escena (sin interferir con la música nativa de la escena) y se detienen al cambiar de escena.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "14.369",
+    "maximum": "14"
+  },
+  "authors": [
+    {
+      "name": "Miguel Ángel Lucas"
+    }
+  ],
+  "esmodules": [
+    "scripts/sonidos-ambiente.js"
+  ],
+  "styles": [
+    "styles/sonidos-ambiente.css"
+  ],
+  "url": "https://github.com/meix13/sonidos-ambiente-escena",
+  "manifest": "https://raw.githubusercontent.com/meix13/sonidos-ambiente-escena/main/module.json"
+}
